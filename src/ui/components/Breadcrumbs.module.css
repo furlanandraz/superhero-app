@@ -1,0 +1,7 @@
+.breadcrumbs{
+    position: fixed;
+    height: 40px;
+    width: 100%;
+    top: 80px;
+    padding: .5rem;
+}
