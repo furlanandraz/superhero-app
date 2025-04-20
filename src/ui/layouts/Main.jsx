@@ -1,21 +1,19 @@
-import Header from "../components/Header";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Footer from "../components/Footer";
-import Breadcrumbs from "../components/Breadcrumbs";
+import CharactersGrid from "../views/CharactersGrid";
+import Error404 from "../views/Error404";
 
-import { useCharacters } from "../../context/useCharacters";
-
-import style from './Main.module.css'
-
-
-export default function Main({ children }) {
-    
-    const { breadcrumbs } = useCharacters();
+export default function Main() {
 
     return (
         <>
-            <Header />
-            <Breadcrumbs breadcrumbs={breadcrumbs} />
-            {children}
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<CharactersGrid/>} />
+                    <Route path="*" element={<Error404/>} />
+                </Routes>
+            </BrowserRouter>
             <Footer/>
         </>
     );
