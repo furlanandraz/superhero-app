@@ -1,4 +1,4 @@
-import { CharactersProvider } from "./context/useCharacters";
+import { CharactersProvider } from "./context/CharactersContext";
 
 import Main from './ui/layouts/Main';
 import CharactersGrid from './ui/views/CharactersGrid';

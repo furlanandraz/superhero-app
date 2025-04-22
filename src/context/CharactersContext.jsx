@@ -55,7 +55,6 @@ export function CharactersProvider({ children }) {
         // use the API fetch function
         fetchCharacters();
 
-
         if (filterStatus) {
     
             // build breadrumbs if filer is set

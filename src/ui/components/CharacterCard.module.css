@@ -1,5 +1,17 @@
 .characterCard{
     flex: 0 0 16.66%;
+    padding: .5rem;
+}
+
+.infoWrapper{
+    padding: .5rem;
+    border-radius: .5rem;
+    border: 1px solid #000;
+    transition: all 200ms;
+    cursor: pointer;
+    &:hover{
+        box-shadow: 0 0 2px 2px #00000038;
+    }
 }
 
 @media screen and (max-width:1200px) {

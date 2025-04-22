@@ -1,4 +1,4 @@
-import { useCharacters } from "../../context/useCharacters";
+import { useCharacters } from "../../context/CharactersContext";
 
 import style from './Header.module.css';
 
