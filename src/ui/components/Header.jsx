@@ -1,11 +1,10 @@
-import Breadcrumbs from "./Breadcrumbs";
 import { useCharacters } from "../../context/useCharacters";
 
 import style from './Header.module.css';
 
 export default function Header() {
 
-    const { setFilterStatus, breadcrumbs } = useCharacters();
+    const { setFilterStatus } = useCharacters();
     
     return (
         <header className={style.header}>

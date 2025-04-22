@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import Breadcrumbs from "../components/Breadcrumbs";
+import CharacterCard from "../components/CharacterCard";
 
 import { useCharacters } from "../../context/useCharacters";
 
@@ -15,8 +16,8 @@ export default function CharactersGrid() {
             <Header />
             <Breadcrumbs breadcrumbs={breadcrumbs} />
                 <main className={style.main}>
-                    <div className="wrapper">
-                        {characters.map(character => { return <div key={character.id}>{character.name}</div> })}
+                    <div className={style.flexWrapper}>
+                        {characters.map(character => { return <CharacterCard character={character} /> })}
                         <button onClick={() => setPagination(i => i + 1)}>load more</button>
                     </div>
             </main>

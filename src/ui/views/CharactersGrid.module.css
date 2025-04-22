@@ -6,3 +6,8 @@
     padding: 1rem;
     overflow-y: auto;
 }
+
+.flexWrapper{
+    display: flex;
+    flex-wrap: wrap;
+}

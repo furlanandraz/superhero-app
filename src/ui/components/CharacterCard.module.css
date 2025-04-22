@@ -1,0 +1,27 @@
+.characterCard{
+    flex: 0 0 16.66%;
+}
+
+@media screen and (max-width:1200px) {
+    .characterCard {
+            flex: 0 0 25%;
+        }
+}
+
+@media screen and (max-width:992px) {
+    .characterCard {
+            flex: 0 0 33.33%;
+        }
+}
+
+@media screen and (max-width:768px) {
+    .characterCard {
+            flex: 0 0 50%;
+        }
+}
+
+@media screen and (max-width:456px) {
+    .characterCard {
+            flex: 0 0 100%;
+        }
+}
