@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext, createContext } from "react";
+import { useState, useEffect, useRef, useContext, createContext } from "react";
 
 import { capitalize } from "../functions/helpers";
 
@@ -7,6 +7,7 @@ const CharactersContext = createContext();
 
 // API base url from .env
 const apiUrl = process.env.REACT_APP_API_URL;
+const envProduction = process.env.REACT_APP_PRODUCTION;
 
 export function CharactersProvider({ children }) {
 
@@ -16,6 +17,7 @@ export function CharactersProvider({ children }) {
     const [breadcrumbs, setBreadcrumbs] = useState([]) // handled inside context due to direct filter connection
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const firstFetch = useRef(true); 
 
     // auxiliary function for multi-state handling when there is a filter state change
     function setFilterStatus(newFilterStatus) {
@@ -32,6 +34,8 @@ export function CharactersProvider({ children }) {
 
     // API async fetch function with error handling
     async function fetchCharacters() {
+
+        
 
         setLoading(true);
 
@@ -51,6 +55,11 @@ export function CharactersProvider({ children }) {
 
     // effect runs on mount and for each pagination increment and filter state change
     useEffect(() => {
+        if (firstFetch.current && envProduction === 'false') {
+            firstFetch.current = false;
+            return;
+        }
+        
 
         // use the API fetch function
         fetchCharacters();

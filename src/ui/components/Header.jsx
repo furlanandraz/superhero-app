@@ -13,7 +13,6 @@ export default function Header() {
                 <button onClick={() => setFilterStatus('alive')}>Alive</button>
                 <button onClick={() => setFilterStatus('dead')}>Dead</button>
             </nav>
-            
         </header>
     );
 }

@@ -1,20 +1,30 @@
 import Header from "../components/Header";
 import Breadcrumbs from "../components/Breadcrumbs";
 import CharacterCard from "../components/CharacterCard";
-import { CharacterModal, useCharacterModal } from "../modals/CharacterModal";
-
+import { CharacterModal } from "../modals/CharacterModal";
+import { useCharacterDetails } from "../../hooks/useCharacterDetails";
 import { useCharacters } from "../../context/CharactersContext";
 
 import style from './CharactersGrid.module.css';
+import { useEffect, useState } from "react";
 
 export default function CharactersGrid() {
 
     const { characters, setPagination } = useCharacters();
     const { breadcrumbs } = useCharacters();
-    const { error, loading, modalIsOpen, character, openModal, onClose } = useCharacterModal();
+
+    //new
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const { error, loading, character, setCharacterId } = useCharacterDetails();
 
     function onCardClick(characterId) {
-        openModal(characterId)
+        setCharacterId(characterId);
+        setModalIsOpen(true);
+    }
+    
+    function onClose() {
+        setCharacterId(null);
+        setModalIsOpen(false);
     }
 
     return (
