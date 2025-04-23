@@ -22,7 +22,7 @@ export function useCharacterDetails() {
             setCharacter(data);
         } catch (err) {
             console.error(err);
-            setError('There was an error getting you beloved character :(');
+            setError('There was an error while getting you beloved character :(');
         } finally {
             setLoading(false);
         }
