@@ -20,22 +20,20 @@ export function CharacterModal({ error, loading, character, modalIsOpen, onClose
     <Modal isOpen={modalIsOpen} onRequestClose={onClose} style={customStyles}>
       <button onClick={onClose}>Close</button>
 
-      {character && !loading &&
+      {loading ? (
+        <p>Loading...</p>
+      ) : character ? (
         <div>
           <h2>{character.name}</h2>
           <img src={character.image} alt={character.name} />
           <p>Status: {character.status}</p>
           <p>Species: {character.species}</p>
         </div>
-      }
-
-      {loading &&
-        <p>Loading...</p>
-      }
-
-      {error && !loading &&
+      ) : error ? (
         <p>{error}</p>
-      }
+      ) : null}
+
+      
     </Modal>
   );
 }
