@@ -1,7 +1,40 @@
 .header{
     position: fixed;
+    top: 0;
     height: 5rem;
     width: 100%;
-    top: 0;
+    background-color: #000;
+}
+
+.wrapper{
+    display: flex;
     padding: .5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.nav{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-left: 2rem;
+}
+
+.button{
+    height: 100%;
+    padding: 1rem;
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.active{
+    color: red;
+}
+
+.logo{
+    height: 60px;
 }

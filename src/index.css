@@ -18,3 +18,31 @@ body {
   height: 100%;
   width: 100%;
 }
+
+.container {
+  padding-right: 4%;
+  padding-left: 4%;
+  width: 100%;
+  
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-right: 6%;
+      padding-left: 6%;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    padding-right: 10%;
+      padding-left: 10%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    padding-right: 15%;
+      padding-left: 15%;
+  }
+}
