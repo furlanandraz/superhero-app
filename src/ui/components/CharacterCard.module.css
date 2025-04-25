@@ -1,20 +1,103 @@
-.characterCard{
-    flex: 0 0 16.66%;
-    padding: .5rem;
-}
-
-.infoWrapper{
+.cardWrapper{
+    height: 100%;
     padding: .5rem;
     border-radius: .5rem;
     border: 1px solid #000;
     transition: all 200ms;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     &:hover{
         box-shadow: 0 0 2px 2px #00000038;
     }
 }
 
-@media screen and (max-width:1200px) {
+.imageWrapper::after{
+    position: absolute;
+    content: '';
+    inset: 0;
+    height: auto;
+    border-radius: 100%;
+    background-color: #000;
+
+}
+
+.image{
+    width: 100%;
+    height: auto;
+    border-radius: 100%;
+}
+
+.imageWrapper {
+    position: relative;
+    overflow: hidden;
+    width: 60%;
+    aspect-ratio: 1;
+    margin: 0 auto;
+    border-radius: 50%;
+}
+
+
+.imageWrapper::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    background-color: #ddd;
+    filter: blur(4px);
+}
+
+
+.imageWrapper::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgb(60, 60, 60);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: ripple 1.5s infinite ease-out;
+    z-index: 10;
+}
+
+
+.imageWrapper.loaded::before,
+.imageWrapper.loaded::after {
+    display: none;
+}
+
+@keyframes ripple {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 0.6;
+    }
+
+    70% {
+        width: 120%;
+        height: 120%;
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.imageWrapper.loaded::before,
+.imageWrapper.loaded::after {
+    display: none;
+}
+
+.characterCard {
+    flex: 0 0 20%;
+    padding: .5rem;
+}
+
+@media screen and (max-width:1400px) {
     .characterCard {
             flex: 0 0 25%;
         }
@@ -26,14 +109,33 @@
         }
 }
 
-@media screen and (max-width:768px) {
+@media screen and (max-width:812px) {
     .characterCard {
             flex: 0 0 50%;
         }
 }
 
-@media screen and (max-width:456px) {
+@media screen and (max-width:576px) {
     .characterCard {
             flex: 0 0 100%;
         }
+}
+
+.fakeButton{
+    margin-top: auto;
+    color: #fff;
+    background-color: rgba(255, 0, 0, 0.848);
+    padding: .5rem;
+    border-radius: .275rem;
+    transition: all 200ms;
+    &:hover{
+        background-color: rgba(255, 94, 0, 0.848);
+    }
+}
+
+.title{
+    padding: 1rem 0;
+    font-weight: 600;
+    font-size: 1.3rem;
+    text-align: center;
 }

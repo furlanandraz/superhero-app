@@ -31,12 +31,17 @@ export default function CharactersGrid() {
         <>
             <Header />
             <Breadcrumbs breadcrumbs={breadcrumbs} />
+            
+
             <main className={style.main}>
+                <div className="container">
                 <div className={style.flexWrapper}>
-                    {characters.map(character => { return <CharacterCard character={character} onCardClick={onCardClick} /> })}
+                    {characters.map(character => { return <CharacterCard key={character.id} character={character} onCardClick={onCardClick} /> })}
                     <button onClick={() => setPagination(i => i + 1)}>load more</button>
                 </div>
+                </div>
             </main>
+            
             <CharacterModal modalIsOpen={modalIsOpen} loading={loading} error={error} character={character} onClose={onClose} />
         </>
     );

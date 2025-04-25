@@ -21,6 +21,10 @@
     height: 40px;
 }
 
+.breadcrumb:last-of-type{
+    cursor: unset;
+}
+
 .separator{
     height: 20px;
     width: 2px;
