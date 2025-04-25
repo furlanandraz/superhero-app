@@ -3,5 +3,30 @@
     height: 40px;
     width: 100%;
     top: 80px;
+}
+
+.wrapper {
+    display: flex;
     padding: .5rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb{
+    background: transparent;
+    border: none;
+    height: 40px;
+    cursor: pointer;
+    height: 40px;
+}
+
+.separator{
+    height: 20px;
+    width: 2px;
+    background-color: #ddd;
+}
+
+.separator:last-of-type{
+    display: none;
 }
