@@ -17,6 +17,7 @@ export function CharactersProvider({ children }) {
     const [breadcrumbs, setBreadcrumbs] = useState([]) // handled inside context due to direct filter connection
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [finished, setFinished] = useState(false);
     const firstFetch = useRef(true); 
 
     // auxiliary function for multi-state handling when there is a filter state change
@@ -29,26 +30,43 @@ export function CharactersProvider({ children }) {
         setFilterStatusReset(newFilterStatus);
         setPagination(1);
         setCharacters([]);
+        setFinished(false);
 
     }
 
     // API async fetch function with error handling
     async function fetchCharacters() {
 
-        
-
         setLoading(true);
 
         try {
+
             const res = await fetch(`${apiUrl}/character?page=${pagination}${filterStatus ? `&status=${filterStatus}` : ''}`);
+
+            if (res.status === 404) {
+                setFinished(true);
+                return;
+            }
+
             if (!res.ok) throw new Error('There seems to be a problem with the API.');
+
             const data = await res.json();
+            console.log(data.results.length)
+            if (data.results.length < 20) {
+                setFinished(true);
+                return;
+            }
             setCharacters((prev) => [...prev, ...data.results]);
+
         } catch (err) {
+
             console.error(err);
             setError(err);
+
         } finally {
+
             setLoading(false);
+
         }
 
     };
@@ -61,8 +79,7 @@ export function CharactersProvider({ children }) {
         }
         
 
-        // use the API fetch function
-        fetchCharacters();
+        if (!finished) fetchCharacters();
 
         if (filterStatus) {
     
@@ -89,14 +106,14 @@ export function CharactersProvider({ children }) {
             setFilterStatusReset('');
             setPagination(1);
             setCharacters([]);
-            setBreadcrumbs([]);
             setBreadcrumbs([{ label: "Home", onClick: () => void 0 }]);
+            setFinished(false);
         }
 
     }, []);
     
     // assign values to character context for use in child components
-    const context = { error, loading, characters, breadcrumbs, filterStatus, setFilterStatus, setPagination };
+    const context = { error, loading, finished, characters, breadcrumbs, filterStatus, setFilterStatus, setPagination };
 
     return (
         <CharactersContext.Provider value={context}>
