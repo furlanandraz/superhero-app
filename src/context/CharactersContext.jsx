@@ -9,7 +9,6 @@ const CharactersContext = createContext();
 
 // variables from .env parsed
 const apiUrl = process.env.REACT_APP_API_URL;
-const envProduction = process.env.REACT_APP_PRODUCTION;
 
 // context provider component
 export function CharactersProvider({ children }) {
@@ -84,7 +83,7 @@ export function CharactersProvider({ children }) {
     useEffect(() => {
 
         // this case prevents effect double run in development mode
-        if (firstFetch.current && envProduction === 'false') {
+        if (firstFetch.current && process.env.NODE_ENV !== 'production') {
             firstFetch.current = false;
             return;
         }
