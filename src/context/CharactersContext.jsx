@@ -1,24 +1,27 @@
+// react imports
 import { useState, useEffect, useRef, useContext, createContext } from "react";
 
+// helper imports
 import { capitalize } from "../functions/helpers";
 
-// context for characters, to be available in grid view and header component
+// context for characters import, to be available in grid view and header component
 const CharactersContext = createContext();
 
-// API base url from .env
+// variables from .env parsed
 const apiUrl = process.env.REACT_APP_API_URL;
 const envProduction = process.env.REACT_APP_PRODUCTION;
 
+// context provider component
 export function CharactersProvider({ children }) {
 
-    const [pagination, setPagination] = useState(1); // used for filtering by page with infite scoll/load more
+    const [pagination, setPagination] = useState(1); // used for querying by page with infite scoll/load more
     const [filterStatus, setFilterStatusReset] = useState(''); // used for filtering API query
     const [characters, setCharacters] = useState([]); // used for storing characters array and extend it on scroll
     const [breadcrumbs, setBreadcrumbs] = useState([]) // handled inside context due to direct filter connection
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
-    const [finished, setFinished] = useState(false);
-    const firstFetch = useRef(true); 
+    const [loading, setLoading] = useState(false); // loading state
+    const [error, setError] = useState(''); // error state
+    const [finished, setFinished] = useState(false); // no more results returned state
+    const firstFetch = useRef(true); // reference used in developement to prevent effect double run on mount
 
     // auxiliary function for multi-state handling when there is a filter state change
     function setFilterStatus(newFilterStatus) {
@@ -41,8 +44,10 @@ export function CharactersProvider({ children }) {
 
         try {
 
+            // fetching resources with filter if present
             const res = await fetch(`${apiUrl}/character?page=${pagination}${filterStatus ? `&status=${filterStatus}` : ''}`);
 
+            // resources return 404 when there is no existing page
             if (res.status === 404) {
                 setFinished(true);
                 return;
@@ -50,12 +55,16 @@ export function CharactersProvider({ children }) {
 
             if (!res.ok) throw new Error('There seems to be a problem with the API.');
 
+
             const data = await res.json();
-            console.log(data.results.length)
+
+            // data is always of length 20, if this fails, new fetches are automatically prevented intil filter state change or unmount
             if (data.results.length < 20) {
                 setFinished(true);
                 return;
             }
+
+            // append new batch of charatcers without mutating previous
             setCharacters((prev) => [...prev, ...data.results]);
 
         } catch (err) {
@@ -73,14 +82,17 @@ export function CharactersProvider({ children }) {
 
     // effect runs on mount and for each pagination increment and filter state change
     useEffect(() => {
+
+        // this case prevents effect double run in development mode
         if (firstFetch.current && envProduction === 'false') {
             firstFetch.current = false;
             return;
         }
         
-
+        // if finished state is true, fetching is not performed for nonexisting data
         if (!finished) fetchCharacters();
 
+        // breadcrums building on filter change 
         if (filterStatus) {
     
             // build breadrumbs if filer is set
@@ -91,7 +103,7 @@ export function CharactersProvider({ children }) {
 
         } else {
 
-            // revert breadcrumbs to showing Home if no filter is set
+            // revert breadcrumbs to showing Home if no filter is unset
             setBreadcrumbs([{ label: "Home", onClick: () => void 0 }]);
 
         }
@@ -99,7 +111,7 @@ export function CharactersProvider({ children }) {
     }, [pagination, filterStatus]);
 
 
-    // state cleanup on context unmount with no dependency (not necessary here since its global)
+    // state cleanup on context unmount with no dependency, so it doesn run on state change, but only on unmount
     useEffect(() => {
 
         return () => {
@@ -115,6 +127,8 @@ export function CharactersProvider({ children }) {
     // assign values to character context for use in child components
     const context = { error, loading, finished, characters, breadcrumbs, filterStatus, setFilterStatus, setPagination };
 
+
+    // context provider component
     return (
         <CharactersContext.Provider value={context}>
             {children}

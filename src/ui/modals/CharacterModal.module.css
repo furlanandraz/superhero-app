@@ -11,8 +11,7 @@
 
     width: 90vw;
     max-width: 600px;
-    height: 700px;
-    max-height: 90vh;
+    
 
     overflow-y: auto;
     border: 1px solid #bbb;
@@ -28,8 +27,31 @@
 .modalHeader{
     align-self: end;
     justify-self: start;
+    margin-bottom: 1rem;
 }
 
+.wrapper{
+    width: 100%;
+    display: flex;
+}
+
+.details{
+    padding-left: 1rem;
+}
+
+@media screen and (max-width: 576px) {
+
+    .wrapper {
+        flex-direction: column;
+        align-items: center;
+        
+    }
+
+    .details{
+        padding-left: 0;
+    }
+
+}
 .loading {
     position: absolute;
     inset: 0;
@@ -58,5 +80,19 @@
 
     100% {
         background-position: 100% 0;
+    }
+}
+
+.closeButton {
+    color: #fff;
+    border: none;
+    background-color: rgba(255, 0, 0, 0.848);
+    padding: .5rem;
+    border-radius: .275rem;
+    transition: all 200ms;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(255, 94, 0, 0.848);
     }
 }

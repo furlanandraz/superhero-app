@@ -3,6 +3,8 @@
     height: 40px;
     width: 100%;
     top: 80px;
+    z-index: 10;
+    box-shadow: 2px 2px 2px #ddd;
 }
 
 .wrapper {

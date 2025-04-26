@@ -42,6 +42,7 @@ export default function CharactersGrid() {
                 <div className="container">
                     <div className={style.flexWrapper}>
                         {characters.map(character => { return <CharacterCard key={character.id} character={character} onCardClick={onCardClick} /> })}
+                        
                     </div>
                     <InfiniteScrollObserver ref={sentinelReference} error={gridError} loading={gridLoading} finished={finished}/>
                 </div>
